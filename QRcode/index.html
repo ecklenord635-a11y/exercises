@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>网址转二维码 · QR Studio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="./style.css" />
+  <!-- 使用开源二维码库 qrcodejs，通过 CDN 引入 -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <h1>网址转二维码</h1>
+      <p>为你的链接生成干净、可下载的二维码</p>
+    </header>
+
+    <main class="app-main">
+      <div class="mode-toggle" role="tablist" aria-label="生成模式">
+        <button class="mode-btn is-active" data-mode="single" type="button">
+          单个网址
+        </button>
+        <button class="mode-btn" data-mode="batch" type="button">
+          批量生成
+        </button>
+      </div>
+
+      <!-- 单个网址模式 -->
+      <section id="single-mode" class="mode-panel is-active" aria-label="单个网址模式">
+        <label class="field">
+          <span class="field-label">网址（URL）</span>
+          <input
+            id="url-input"
+            type="text"
+            autocomplete="off"
+            placeholder="例如：https://www.apple.com"
+          />
+        </label>
+
+        <div class="inline-group">
+          <div class="options">
+            <label>
+              大小
+              <input id="size-input" type="number" value="256" min="128" max="512" step="32" />
+              px
+            </label>
+          </div>
+
+          <div class="primary-actions">
+            <button id="generate-btn" type="button">生成</button>
+            <button id="download-btn" type="button" disabled>下载 PNG</button>
+          </div>
+        </div>
+
+        <section class="result-section">
+          <h2>预览</h2>
+          <div id="qrcode" class="qrcode-box"></div>
+          <p class="tip">生成后可以直接下载 PNG 图片，或用手机扫码测试。</p>
+        </section>
+      </section>
+
+      <!-- 批量模式 -->
+      <section id="batch-mode" class="mode-panel" aria-label="批量模式">
+        <label class="field">
+          <span class="field-label">多个网址（每行一个）</span>
+          <textarea
+            id="bulk-input"
+            rows="5"
+            spellcheck="false"
+            placeholder="例如：&#10;https://www.apple.com&#10;https://www.icloud.com&#10;https://developer.apple.com"
+          ></textarea>
+        </label>
+
+        <div class="inline-group">
+          <div class="options">
+            <label>
+              大小
+              <input id="bulk-size-input" type="number" value="224" min="128" max="512" step="32" />
+              px
+            </label>
+          </div>
+
+          <div class="primary-actions">
+            <button id="bulk-generate-btn" type="button">生成全部二维码</button>
+          </div>
+        </div>
+
+        <section class="result-section">
+          <h2>二维码列表</h2>
+          <div id="bulk-list" class="grid"></div>
+          <p class="tip">每一行会生成一张二维码图片，你可以分别下载对应的 PNG 文件。</p>
+        </section>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <span>本地运行 · 无上传 · 灵感来自 Apple 的简约设计。</span>
+    </footer>
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+</html>
+
